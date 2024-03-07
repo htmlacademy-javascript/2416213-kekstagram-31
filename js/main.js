@@ -48,11 +48,11 @@ const getRandomArrayElement = (elements) =>
   elements[getRandomInteger(0, elements.length - 1)];
 
 function createIdGenerator() {
-  let lastGeneratedID = 0;
+  let lastGeneratedId = 0;
 
   return () => {
-    lastGeneratedID += 1;
-    return lastGeneratedID;
+    lastGeneratedId++;
+    return lastGeneratedId;
   };
 }
 
