@@ -2,7 +2,7 @@ import {
   getRandomInteger,
   getRandomArrayElement,
   createIdGenerator,
-} from './util.js';
+} from './functions.js';
 
 const AVATAR_COUNT = 6;
 const LIKE_MIN_COUNT = 15;
