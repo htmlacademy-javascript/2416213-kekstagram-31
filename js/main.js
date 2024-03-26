@@ -1,3 +1,6 @@
 import { similarPhoto } from './data.js';
+import { drawSimilarPhoto } from './picture.js';
 
-similarPhoto();
+const photos = similarPhoto();
+
+drawSimilarPhoto(photos);
