@@ -8,27 +8,27 @@ const templateFragment = document
 const drawSimilarPhoto = (photos) => {
   const fragment = document.createDocumentFragment();
 
-  photos.forEach(({ url, description, likes, comments }) => {
+  photos.forEach((photo) => {
     const element = templateFragment.cloneNode(true);
     const imgElement = element.querySelector('.picture__img');
     const likesElement = element.querySelector('.picture__likes');
     const commentsElement = element.querySelector('.picture__comments');
 
-    imgElement.src = url;
-    imgElement.alt = description;
-    likesElement.textContent = likes;
-    commentsElement.textContent = comments.length;
+    imgElement.src = photo.url;
+    imgElement.alt = photo.description;
+    likesElement.textContent = photo.likes;
+    commentsElement.textContent = photo.comments.length;
+
+    element.dataset.photoId = photo.id;
+
+    element.addEventListener('click', () => {
+      onThumbnailClick(photo);
+    });
 
     fragment.appendChild(element);
   });
 
   picturesContainer.appendChild(fragment);
-
-  const thumbnails = document.querySelectorAll('.picture');
-
-  thumbnails.forEach((thumbnail, i) => {
-    onThumbnailClick(thumbnail, photos[i]);
-  });
 };
 
 export { drawSimilarPhoto };

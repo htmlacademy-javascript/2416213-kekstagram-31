@@ -36,34 +36,32 @@ function closeBigPicture() {
   document.removeEventListener('keydown', onPopupEscKeydown);
 }
 
-const onThumbnailClick = (thumbnail, photoData) => {
-  thumbnail.addEventListener('click', () => {
-    image.src = photoData.url;
-    likes.textContent = photoData.likes;
-    caption.textContent = photoData.description;
+const onThumbnailClick = (photoData) => {
+  image.src = photoData.url;
+  likes.textContent = photoData.likes;
+  caption.textContent = photoData.description;
 
-    commentsShownCount.textContent = photoData.comments.length;
-    commentsTotalCount.textContent = photoData.comments.length;
-    commentsCount.classList.add('hidden');
-    commentsLoader.classList.add('hidden');
+  commentsShownCount.textContent = photoData.comments.length;
+  commentsTotalCount.textContent = photoData.comments.length;
+  commentsCount.classList.add('hidden');
+  commentsLoader.classList.add('hidden');
 
-    commentList.textContent = '';
+  commentList.textContent = '';
 
-    photoData.comments.forEach(({ avatar, name, message }) => {
-      const commentElement = commentItem.cloneNode(true);
+  photoData.comments.forEach(({ avatar, name, message }) => {
+    const commentElement = commentItem.cloneNode(true);
 
-      const commentImage = commentElement.querySelector('.social__picture');
-      const commentText = commentElement.querySelector('.social__text');
+    const commentImage = commentElement.querySelector('.social__picture');
+    const commentText = commentElement.querySelector('.social__text');
 
-      commentImage.src = avatar;
-      commentImage.alt = name;
-      commentText.textContent = message;
+    commentImage.src = avatar;
+    commentImage.alt = name;
+    commentText.textContent = message;
 
-      commentList.append(commentElement);
-    });
-
-    openBigPicture();
+    commentList.append(commentElement);
   });
+
+  openBigPicture();
 };
 
 closeBigPictureButton.addEventListener('click', closeBigPicture);
