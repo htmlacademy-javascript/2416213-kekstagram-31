@@ -8,13 +8,12 @@ const shownCommentsCount = document.querySelector(
 const commentListFragment = document.createDocumentFragment();
 const commentTemplate = commentsList.children[0].cloneNode(true);
 
-const createCommentElement = (commentData) => {
-  const { avatar, name, message } = commentData;
+const createCommentElement = (item) => {
   const commentElement = commentTemplate.cloneNode(true);
 
-  commentElement.querySelector('.social__picture').src = avatar;
-  commentElement.querySelector('.social__picture').alt = name;
-  commentElement.querySelector('.social__text').textContent = message;
+  commentElement.querySelector('.social__picture').src = item.avatar;
+  commentElement.querySelector('.social__picture').alt = item.name;
+  commentElement.querySelector('.social__text').textContent = item.message;
 
   return commentElement;
 };
@@ -24,7 +23,10 @@ const renderComments = (commentArray) => {
 
   const showNextComments = () => {
     const startIndex = commentCounter * COMMENTS_STEP;
-    const endIndex = Math.min(startIndex + COMMENTS_STEP, commentArray.length);
+    const endIndex =
+      startIndex + COMMENTS_STEP > commentArray.length
+        ? commentArray.length
+        : startIndex + COMMENTS_STEP;
 
     for (let i = startIndex; i < endIndex; i++) {
       commentListFragment.append(createCommentElement(commentArray[i]));
