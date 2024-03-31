@@ -39,6 +39,8 @@ function openBigPicture(item) {
 }
 
 function closeBigPicture() {
+  const commentsLoaderButton = document.querySelector('.comments-loader');
+  commentsLoaderButton.replaceWith(commentsLoaderButton.cloneNode(true));
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onPopupEscKeydown);

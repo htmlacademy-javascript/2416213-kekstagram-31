@@ -1,7 +1,6 @@
 const COMMENTS_STEP = 5;
 
 const commentsList = document.querySelector('.social__comments');
-const commentsLoaderButton = document.querySelector('.comments-loader');
 const shownCommentsCount = document.querySelector(
   '.social__comment-shown-count'
 );
@@ -19,6 +18,8 @@ const createCommentElement = (item) => {
 };
 
 const renderComments = (commentArray) => {
+  const commentsLoaderButton = document.querySelector('.comments-loader');
+
   let commentCounter = 0;
 
   const showNextComments = () => {
