@@ -1,4 +1,4 @@
-import { onThumbnailClick } from './big-picture.js';
+import openBigPicture from './big-picture.js';
 
 const picturesContainer = document.querySelector('.pictures');
 const templateFragment = document
@@ -22,7 +22,7 @@ const drawSimilarPhoto = (photos) => {
     element.dataset.photoId = photo.id;
 
     element.addEventListener('click', () => {
-      onThumbnailClick(photo);
+      openBigPicture(photo);
     });
 
     fragment.appendChild(element);
