@@ -1,8 +1,12 @@
-import { similarPhoto } from './data.js';
 import { drawSimilarPhoto } from './picture.js';
-import './big-picture.js';
-import './render-form.js';
+import { setUserFormSubmit } from './render-form.js';
+import { getData } from './api.js';
+import { showDataErrorMessage } from './util.js';
+import { showSuccesMessage, showErrorMessage } from './message.js';
 
-const photos = similarPhoto();
+getData(
+  (photos) => drawSimilarPhoto(photos),
+  () => showDataErrorMessage()
+);
 
-drawSimilarPhoto(photos);
+setUserFormSubmit(showSuccesMessage, showErrorMessage);
