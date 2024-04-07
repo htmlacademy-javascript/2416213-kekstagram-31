@@ -17,4 +17,12 @@ const showDataErrorMessage = () => {
   }, REMOVE_MESSAGE_TIMEOUT);
 };
 
-export { isEscape, showDataErrorMessage };
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export { isEscape, showDataErrorMessage, debounce };
