@@ -1,22 +1,20 @@
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
+const REMOVE_MESSAGE_TIMEOUT = 5000;
 
-const getRandomArrayElement = (elements) =>
-  elements[getRandomInteger(0, elements.length - 1)];
-
-function createIdGenerator() {
-  let lastGeneratedID = 0;
-
-  return () => {
-    lastGeneratedID += 1;
-    return lastGeneratedID;
-  };
-}
+const dataErrorMessageTemplate = document
+  .querySelector('#data-error')
+  .content.querySelector('.data-error');
 
 const isEscape = (evt) => evt.key === 'Escape';
 
-export { getRandomInteger, getRandomArrayElement, createIdGenerator, isEscape };
+// Ошибка загрузки файлов с сервера
+
+const showDataErrorMessage = () => {
+  const dataErrorMessage = dataErrorMessageTemplate.cloneNode(true);
+  document.body.appendChild(dataErrorMessage);
+
+  setTimeout(() => {
+    dataErrorMessage.remove();
+  }, REMOVE_MESSAGE_TIMEOUT);
+};
+
+export { isEscape, showDataErrorMessage };

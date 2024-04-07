@@ -1,4 +1,4 @@
-import { isEscape } from './util.js';
+import { isEscape } from '../util.js';
 import renderComments from './render-comments.js';
 
 const body = document.querySelector('body');
