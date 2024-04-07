@@ -1,4 +1,4 @@
-import { isEscape } from './util';
+import { isEscape } from '../util';
 
 const successMessageElement = document
   .querySelector('#success')

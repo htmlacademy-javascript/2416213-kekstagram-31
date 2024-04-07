@@ -1,7 +1,7 @@
-import { isEscape } from './util';
+import { isEscape } from '../util.js';
 import { resetResize } from './resize-image.js';
 import { resetEffects } from './effect-image.js';
-import { sendData } from './api.js';
+import { sendData } from '../api.js';
 
 const MAX_HASHTAGS_AMOUNT = 5;
 const MAX_DESCRIPTION_AMOUNT = 140;
