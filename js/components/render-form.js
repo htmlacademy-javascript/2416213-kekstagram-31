@@ -6,6 +6,7 @@ import { sendData } from '../api.js';
 const MAX_HASHTAGS_AMOUNT = 5;
 const MAX_DESCRIPTION_AMOUNT = 140;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const ErrorText = {
   INVALID_FORMAT:
@@ -27,6 +28,8 @@ const redactorCancelButton = form.querySelector('.img-upload__cancel');
 const inputHashtag = form.querySelector('.text__hashtags');
 const inputDescription = form.querySelector('.text__description');
 const submitButton = form.querySelector('.img-upload__submit');
+const photoPreview = form.querySelector('.img-upload__preview img');
+const effectsPreviews = form.querySelectorAll('.effects__preview');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -65,8 +68,20 @@ function closeRedactorPhoto() {
   resetResize();
   resetEffects();
 }
+const isValidType = (file) => {
+  const fileName = file.name.toLowerCase();
+  return FILE_TYPES.some((it) => fileName.endsWith(it));
+};
 
 const onFileInputChange = () => {
+  const file = fileInput.files[0];
+
+  if (file && isValidType(file)) {
+    photoPreview.src = URL.createObjectURL(file);
+    effectsPreviews.forEach((preview) => {
+      preview.style.backgroundImage = `url('${photoPreview.src}')`;
+    });
+  }
   openRedactorPhoto();
 };
 
