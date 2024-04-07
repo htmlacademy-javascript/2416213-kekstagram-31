@@ -1,4 +1,4 @@
-const Effects = {
+const effects = {
   NONE: 'none',
   CHROME: 'chrome',
   SEPIA: 'sepia',
@@ -8,30 +8,30 @@ const Effects = {
 };
 
 const effectToFilter = {
-  [Effects.CHROME]: {
+  [effects.CHROME]: {
     style: 'grayscale',
     unit: '',
   },
-  [Effects.SEPIA]: {
+  [effects.SEPIA]: {
     style: 'sepia',
     unit: '',
   },
-  [Effects.MARVIN]: {
+  [effects.MARVIN]: {
     style: 'invert',
     unit: '%',
   },
-  [Effects.PHOBOS]: {
+  [effects.PHOBOS]: {
     style: 'blur',
     unit: 'px',
   },
-  [Effects.HEAT]: {
+  [effects.HEAT]: {
     style: 'brightness',
     unit: '',
   },
 };
 
 const effectToSliderOptions = {
-  [Effects.NONE]: {
+  [effects.NONE]: {
     range: {
       min: 0,
       max: 100,
@@ -39,7 +39,7 @@ const effectToSliderOptions = {
     start: 100,
     step: 1,
   },
-  [Effects.CHROME]: {
+  [effects.CHROME]: {
     range: {
       min: 0,
       max: 1,
@@ -47,7 +47,7 @@ const effectToSliderOptions = {
     start: 1,
     step: 0.1,
   },
-  [Effects.SEPIA]: {
+  [effects.SEPIA]: {
     range: {
       min: 0,
       max: 1,
@@ -55,7 +55,7 @@ const effectToSliderOptions = {
     start: 1,
     step: 0.1,
   },
-  [Effects.MARVIN]: {
+  [effects.MARVIN]: {
     range: {
       min: 0,
       max: 100,
@@ -63,7 +63,7 @@ const effectToSliderOptions = {
     start: 100,
     step: 1,
   },
-  [Effects.PHOBOS]: {
+  [effects.PHOBOS]: {
     range: {
       min: 0,
       max: 3,
@@ -71,7 +71,7 @@ const effectToSliderOptions = {
     start: 3,
     step: 0.1,
   },
-  [Effects.HEAT]: {
+  [effects.HEAT]: {
     range: {
       min: 1,
       max: 3,
@@ -105,7 +105,7 @@ sliderElement.noUiSlider.on('update', () => {
   const selectedEffect = document.querySelector(
     'input[name="effect"]:checked'
   ).value;
-  if (selectedEffect !== Effects.NONE) {
+  if (selectedEffect !== effects.NONE) {
     const { value } = effectLevelElement;
     const { style, unit } = effectToFilter[selectedEffect];
 
