@@ -10,7 +10,7 @@ const getData = (onSuccess, onFail) => {
 };
 
 const sendData = (onSuccess, onFail, body) => {
-  fetch('https://31.javascript.htmlacademy.pro/kekstagram', {
+  fetch('https://31.javascript.htmlacademy.pro/kekstagram/', {
     method: 'POST',
     body,
   })
