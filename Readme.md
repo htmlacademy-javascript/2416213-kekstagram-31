@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Даниил Тюкин](https://up.htmlacademy.ru/javascript/31/user/2416213).
-* Наставник: `Неизвестно`.
+* Наставник: [Дмитрий Беллавин](https://htmlacademy.ru/profile/bellavin).
 
 ---
 
