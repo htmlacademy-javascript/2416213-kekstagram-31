@@ -1,5 +1,5 @@
-import { drawSimilarPhoto } from './picture';
-import { debounce } from '../util';
+import { drawSimilarPhoto } from './picture.js';
+import { debounce } from '../util.js';
 
 const NUMBER_RANDOM_PHOTOS = 10;
 const RERENDER_DELAY = 500;
