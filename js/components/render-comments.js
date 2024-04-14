@@ -1,11 +1,11 @@
 const COMMENTS_STEP = 5;
 
-const commentsList = document.querySelector('.social__comments');
-const shownCommentsCount = document.querySelector(
+const commentsListElement = document.querySelector('.social__comments');
+const shownCommentsCountElement = document.querySelector(
   '.social__comment-shown-count'
 );
 const commentListFragment = document.createDocumentFragment();
-const commentTemplate = commentsList.children[0].cloneNode(true);
+const commentTemplate = commentsListElement.children[0].cloneNode(true);
 
 const createCommentElement = (item) => {
   const commentElement = commentTemplate.cloneNode(true);
@@ -18,11 +18,11 @@ const createCommentElement = (item) => {
 };
 
 const renderComments = (commentArray) => {
-  const commentsLoaderButton = document.querySelector('.comments-loader');
+  const loaderButtonElement = document.querySelector('.comments-loader');
 
   let commentCounter = 0;
 
-  const showNextComments = () => {
+  const onShowNextComments = () => {
     const startIndex = commentCounter * COMMENTS_STEP;
     const endIndex =
       startIndex + COMMENTS_STEP > commentArray.length
@@ -34,18 +34,18 @@ const renderComments = (commentArray) => {
     }
 
     commentCounter++;
-    shownCommentsCount.textContent = endIndex;
-    commentsLoaderButton.classList.toggle(
+    shownCommentsCountElement.textContent = endIndex;
+    loaderButtonElement.classList.toggle(
       'hidden',
       endIndex === commentArray.length
     );
-    commentsList.append(commentListFragment);
+    commentsListElement.append(commentListFragment);
   };
 
-  commentsList.innerHTML = '';
-  showNextComments();
+  commentsListElement.innerHTML = '';
+  onShowNextComments();
 
-  commentsLoaderButton.addEventListener('click', showNextComments);
+  loaderButtonElement.addEventListener('click', onShowNextComments);
 };
 
 export default renderComments;

@@ -1,7 +1,7 @@
 import openBigPicture from './big-picture.js';
 
-const picturesContainer = document.querySelector('.pictures');
-const templateFragment = document
+const picturesContainerElement = document.querySelector('.pictures');
+const templateElement = document
   .querySelector('#picture')
   .content.querySelector('.picture');
 
@@ -10,26 +10,26 @@ const drawSimilarPhoto = (photos) => {
 
   photos.forEach((photo) => {
     const { url, description, likes, comments, id } = photo;
-    const element = templateFragment.cloneNode(true);
-    const imgElement = element.querySelector('.picture__img');
-    const likesElement = element.querySelector('.picture__likes');
-    const commentsElement = element.querySelector('.picture__comments');
+    const photoElement = templateElement.cloneNode(true);
+    const imgElement = photoElement.querySelector('.picture__img');
+    const likesElement = photoElement.querySelector('.picture__likes');
+    const commentsElement = photoElement.querySelector('.picture__comments');
 
     imgElement.src = url;
     imgElement.alt = description;
     likesElement.textContent = likes;
     commentsElement.textContent = comments.length;
 
-    element.dataset.photoId = id;
+    photoElement.dataset.photoId = id;
 
-    element.addEventListener('click', () => {
+    photoElement.addEventListener('click', () => {
       openBigPicture(photo);
     });
 
-    fragment.appendChild(element);
+    fragment.appendChild(photoElement);
   });
 
-  picturesContainer.appendChild(fragment);
+  picturesContainerElement.appendChild(fragment);
 };
 
 export { drawSimilarPhoto };

@@ -81,12 +81,14 @@ const effectToSliderOptions = {
   },
 };
 
-const form = document.querySelector('.img-upload__form');
-const imageElement = form.querySelector('.img-upload__preview img');
-const effectsElement = form.querySelector('.effects');
-const sliderContainerElement = form.querySelector('.img-upload__effect-level');
-const sliderElement = form.querySelector('.effect-level__slider');
-const effectLevelElement = form.querySelector('.effect-level__value');
+const formElement = document.querySelector('.img-upload__form');
+const imageElement = formElement.querySelector('.img-upload__preview img');
+const effectsElement = formElement.querySelector('.effects');
+const sliderContainerElement = formElement.querySelector(
+  '.img-upload__effect-level'
+);
+const sliderElement = formElement.querySelector('.effect-level__slider');
+const effectLevelElement = formElement.querySelector('.effect-level__value');
 
 noUiSlider.create(sliderElement, {
   range: {
@@ -102,16 +104,16 @@ sliderElement.noUiSlider.on('update', () => {
   const filterValue = sliderElement.noUiSlider.get(true);
   effectLevelElement.value = filterValue;
   sliderContainerElement.classList.remove('hidden');
-  const selectedEffect = document.querySelector(
+  const selectedEffectElement = document.querySelector(
     'input[name="effect"]:checked'
   ).value;
-  if (selectedEffect !== effects.NONE) {
+  if (selectedEffectElement !== effects.NONE) {
     const { value } = effectLevelElement;
-    const { style, unit } = effectToFilter[selectedEffect];
+    const { style, unit } = effectToFilter[selectedEffectElement];
 
-    imageElement.style.filter = `${style}(${value}${unit})`;
+    imageElement.style.setProperty('filter', `${style}(${value}${unit})`);
   } else {
-    imageElement.style.filter = 'none';
+    imageElement.style.setProperty('filter', 'none');
     sliderContainerElement.classList.add('hidden');
   }
 });
@@ -125,7 +127,7 @@ effectsElement.addEventListener('change', onEffectChange);
 
 const resetEffects = () => {
   document.querySelector('#effect-none').check = true;
-  imageElement.style.filter = 'none';
+  imageElement.style.setProperty('filter', 'none');
   sliderContainerElement.classList.add('hidden');
 };
 

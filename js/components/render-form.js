@@ -20,18 +20,23 @@ const SubmitButtonCaption = {
   IDLE: 'Отправить',
 };
 
-const body = document.querySelector('body');
-const form = document.querySelector('.img-upload__form');
-const fileInput = form.querySelector('.img-upload__input');
-const overlay = form.querySelector('.img-upload__overlay');
-const redactorCancelButton = form.querySelector('.img-upload__cancel');
-const inputHashtag = form.querySelector('.text__hashtags');
-const inputDescription = form.querySelector('.text__description');
-const submitButton = form.querySelector('.img-upload__submit');
-const photoPreview = form.querySelector('.img-upload__preview img');
-const effectsPreviews = form.querySelectorAll('.effects__preview');
+const bodyElement = document.querySelector('body');
+const formElement = document.querySelector('.img-upload__form');
+const fileInputElement = formElement.querySelector('.img-upload__input');
+const overlayElement = formElement.querySelector('.img-upload__overlay');
+const redactorCancelButtonElement = formElement.querySelector(
+  '.img-upload__cancel'
+);
+const inputHashtagElement = formElement.querySelector('.text__hashtags');
+const inputDescriptionElement = formElement.querySelector('.text__description');
+const submitButtonElement = formElement.querySelector('.img-upload__submit');
+const photoPreviewElement = formElement.querySelector(
+  '.img-upload__preview img'
+);
+const effectsPreviewsElement =
+  formElement.querySelectorAll('.effects__preview');
 
-const pristine = new Pristine(form, {
+const pristine = new Pristine(formElement, {
   classTo: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper--error',
   errorTextParent: 'img-upload__field-wrapper',
@@ -49,21 +54,21 @@ const onRedactorEscKeydown = (evt) => {
 const isTextFieldFocused = (evt) => evt.stopPropagation();
 
 const openRedactorPhoto = () => {
-  overlay.classList.remove('hidden');
-  body.classList.add('modal-open');
-  inputHashtag.addEventListener('keydown', isTextFieldFocused);
-  inputDescription.addEventListener('keydown', isTextFieldFocused);
+  overlayElement.classList.remove('hidden');
+  bodyElement.classList.add('modal-open');
+  inputHashtagElement.addEventListener('keydown', isTextFieldFocused);
+  inputDescriptionElement.addEventListener('keydown', isTextFieldFocused);
   document.addEventListener('keydown', onRedactorEscKeydown);
 };
 
 function closeRedactorPhoto() {
-  form.reset();
+  formElement.reset();
   pristine.reset();
-  fileInput.value = '';
-  overlay.classList.add('hidden');
-  body.classList.remove('modal-open');
-  inputHashtag.removeEventListener('keydown', isTextFieldFocused);
-  inputDescription.removeEventListener('keydown', isTextFieldFocused);
+  fileInputElement.value = '';
+  overlayElement.classList.add('hidden');
+  bodyElement.classList.remove('modal-open');
+  inputHashtagElement.removeEventListener('keydown', isTextFieldFocused);
+  inputDescriptionElement.removeEventListener('keydown', isTextFieldFocused);
   document.removeEventListener('keydown', onRedactorEscKeydown);
   resetResize();
   resetEffects();
@@ -74,12 +79,12 @@ const isValidType = (file) => {
 };
 
 const onFileInputChange = () => {
-  const file = fileInput.files[0];
+  const file = fileInputElement.files[0];
 
   if (file && isValidType(file)) {
-    photoPreview.src = URL.createObjectURL(file);
-    effectsPreviews.forEach((preview) => {
-      preview.style.backgroundImage = `url('${photoPreview.src}')`;
+    photoPreviewElement.src = URL.createObjectURL(file);
+    effectsPreviewsElement.forEach((preview) => {
+      preview.style.backgroundImage = `url('${photoPreviewElement.src}')`;
     });
   }
   openRedactorPhoto();
@@ -109,7 +114,7 @@ const validateHashtagsAmount = (value) =>
   normalizeHashtags(value).length <= MAX_HASHTAGS_AMOUNT;
 
 pristine.addValidator(
-  inputHashtag,
+  inputHashtagElement,
   validateHashtagsAmount,
   ErrorText.INVALID_AMOUNT,
   3,
@@ -117,7 +122,7 @@ pristine.addValidator(
 );
 
 pristine.addValidator(
-  inputHashtag,
+  inputHashtagElement,
   validateHashtagsUniqueness,
   ErrorText.NOT_UNIQUE,
   2,
@@ -125,7 +130,7 @@ pristine.addValidator(
 );
 
 pristine.addValidator(
-  inputHashtag,
+  inputHashtagElement,
   validateHashtagsFormat,
   ErrorText.INVALID_FORMAT,
   1,
@@ -135,20 +140,20 @@ pristine.addValidator(
 const validateDescription = (value) => value.length <= MAX_DESCRIPTION_AMOUNT;
 
 pristine.addValidator(
-  inputDescription,
+  inputDescriptionElement,
   validateDescription,
   `Не более ${MAX_DESCRIPTION_AMOUNT} символов`
 );
 
 const toggleSubmitButton = (isDisabled) => {
-  submitButton.disabled = isDisabled;
-  submitButton.textContent = isDisabled
+  submitButtonElement.disabled = isDisabled;
+  submitButtonElement.textContent = isDisabled
     ? SubmitButtonCaption.SUBMITTING
     : SubmitButtonCaption.IDLE;
 };
 
 const setUserFormSubmit = (onSuccess, onFail) => {
-  form.addEventListener('submit', (evt) => {
+  formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
     if (isValid) {
@@ -169,8 +174,8 @@ const setUserFormSubmit = (onSuccess, onFail) => {
   });
 };
 
-fileInput.addEventListener('change', onFileInputChange);
+fileInputElement.addEventListener('change', onFileInputChange);
 
-redactorCancelButton.addEventListener('click', onCancelButtonClick);
+redactorCancelButtonElement.addEventListener('click', onCancelButtonClick);
 
 export { setUserFormSubmit };
