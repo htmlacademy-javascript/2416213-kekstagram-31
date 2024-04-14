@@ -4,10 +4,10 @@ import { debounce } from '../util.js';
 const NUMBER_RANDOM_PHOTOS = 10;
 const RERENDER_DELAY = 500;
 
-const filters = document.querySelector('.img-filters');
-const defaultButton = document.querySelector('#filter-default');
-const randomButton = document.querySelector('#filter-random');
-const discussedButton = document.querySelector('#filter-discussed');
+const filtersElement = document.querySelector('.img-filters');
+const defaultButtonElement = document.querySelector('#filter-default');
+const randomButtonElement = document.querySelector('#filter-random');
+const discussedButtonElement = document.querySelector('#filter-discussed');
 
 const FilterEnum = {
   DEFAULT: 'default',
@@ -40,8 +40,8 @@ let currentFilter = FilterEnum.DEFAULT;
 
 const repaint = (filter, data) => {
   const filteredData = filterHandlers[filter](data);
-  const pictures = document.querySelectorAll('.picture');
-  pictures.forEach((item) => item.remove());
+  const pictureElements = document.querySelectorAll('.picture');
+  pictureElements.forEach((item) => item.remove());
   drawSimilarPhoto(filteredData);
 };
 
@@ -49,10 +49,10 @@ const debounceRepaint = debounce(repaint, RERENDER_DELAY);
 
 const toggleActive = (evt, filter, data) => {
   if (currentFilter !== filter) {
-    const currentActiveEl = document.querySelector(
+    const currentActiveElement = document.querySelector(
       '.img-filters__button--active'
     );
-    currentActiveEl.classList.remove('img-filters__button--active');
+    currentActiveElement.classList.remove('img-filters__button--active');
     evt.target.classList.add('img-filters__button--active');
     currentFilter = filter;
     debounceRepaint(filter, data);
@@ -60,15 +60,15 @@ const toggleActive = (evt, filter, data) => {
 };
 
 const initFilter = (data) => {
-  filters.classList.remove('img-filters--inactive');
+  filtersElement.classList.remove('img-filters--inactive');
 
-  defaultButton.addEventListener('click', (evt) => {
+  defaultButtonElement.addEventListener('click', (evt) => {
     toggleActive(evt, FilterEnum.DEFAULT, data);
   });
-  randomButton.addEventListener('click', (evt) => {
+  randomButtonElement.addEventListener('click', (evt) => {
     toggleActive(evt, FilterEnum.RANDOM, data);
   });
-  discussedButton.addEventListener('click', (evt) => {
+  discussedButtonElement.addEventListener('click', (evt) => {
     toggleActive(evt, FilterEnum.DISCUSSED, data);
   });
 };

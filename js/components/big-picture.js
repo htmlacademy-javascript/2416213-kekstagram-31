@@ -1,16 +1,18 @@
 import { isEscape } from '../util.js';
 import renderComments from './render-comments.js';
 
-const body = document.querySelector('body');
-const bigPicture = document.querySelector('.big-picture');
-const closeBigPictureButton = bigPicture.querySelector('.big-picture__cancel');
+const bodyElement = document.querySelector('body');
+const bigPictureElement = document.querySelector('.big-picture');
+const closeBigPictureButtonElement = bigPictureElement.querySelector(
+  '.big-picture__cancel'
+);
 
 const renderBigPicture = ({ url, description, likes, comments }) => {
-  bigPicture.querySelector('img').src = url;
-  bigPicture.querySelector('.likes-count').textContent = likes;
-  bigPicture.querySelector('.social__comment-total-count').textContent =
+  bigPictureElement.querySelector('img').src = url;
+  bigPictureElement.querySelector('.likes-count').textContent = likes;
+  bigPictureElement.querySelector('.social__comment-total-count').textContent =
     comments.length;
-  bigPicture.querySelector('.social__caption').textContent = description;
+  bigPictureElement.querySelector('.social__caption').textContent = description;
 
   renderComments(comments);
 };
@@ -18,34 +20,37 @@ const renderBigPicture = ({ url, description, likes, comments }) => {
 const onPopupEscKeydown = (evt) => {
   if (isEscape(evt)) {
     evt.preventDefault();
-    closeBigPicture();
+    onCloseBigPicture();
   }
 };
 
 const onOverlayClick = (evt) => {
   if (evt.target.classList.contains('overlay')) {
     evt.preventDefault();
-    closeBigPicture();
+    onCloseBigPicture();
   }
 };
 
 function openBigPicture(item) {
   renderBigPicture(item);
-  bigPicture.classList.remove('hidden');
-  body.classList.add('modal-open');
+  bigPictureElement.classList.remove('hidden');
+  bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onPopupEscKeydown);
-  bigPicture.addEventListener('click', onOverlayClick);
-  closeBigPictureButton.addEventListener('click', closeBigPicture);
+  bigPictureElement.addEventListener('click', onOverlayClick);
+  closeBigPictureButtonElement.addEventListener('click', onCloseBigPicture);
 }
 
-function closeBigPicture() {
-  const commentsLoaderButton = document.querySelector('.comments-loader');
-  commentsLoaderButton.replaceWith(commentsLoaderButton.cloneNode(true));
-  bigPicture.classList.add('hidden');
-  body.classList.remove('modal-open');
+function onCloseBigPicture() {
+  const commentsLoaderButtonElement =
+    document.querySelector('.comments-loader');
+  commentsLoaderButtonElement.replaceWith(
+    commentsLoaderButtonElement.cloneNode(true)
+  );
+  bigPictureElement.classList.add('hidden');
+  bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onPopupEscKeydown);
-  bigPicture.removeEventListener('click', onOverlayClick);
-  closeBigPictureButton.removeEventListener('click', closeBigPicture);
+  bigPictureElement.removeEventListener('click', onOverlayClick);
+  closeBigPictureButtonElement.removeEventListener('click', onCloseBigPicture);
 }
 
 export default openBigPicture;
